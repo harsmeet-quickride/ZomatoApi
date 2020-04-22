@@ -11,8 +11,9 @@
 
 
     <style name="AppTheme.Bold" parent="TextAppearance.AppCompat.Title">
-        <item name="android:fontFamily">@font/varela_round_regular</item>
+        <item name="android:fontFamily">@font/roboto_slab_bold</item>
         <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textStyle">bold</item>
     </style>
 

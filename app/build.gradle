@@ -15,6 +15,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "ApiKey", ApiKey)
+        }
+        debug{
+            buildConfigField("String", "ApiKey", ApiKey)
         }
     }
     dataBinding {
@@ -53,4 +57,12 @@ dependencies {
 
     //Gson
     implementation "com.google.code.gson:gson:$rootProject.gson_verison"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp_version"
+
+    //ViewPager2
+    implementation "androidx.viewpager2:viewpager2:$rootProject.view_pager2_version"
 }
