@@ -1,7 +1,6 @@
 package com.example.zomato.model;
 
 import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 
 public class Restaurant{
@@ -30,14 +29,20 @@ public class Restaurant{
 	@SerializedName("price_range")
 	private int priceRange;
 
+	@SerializedName("order_deeplink")
+	private String orderDeeplink;
+
 	@SerializedName("switch_to_order_menu")
 	private int switchToOrderMenu;
 
 	@SerializedName("photos")
 	private List<PhotosItem> photos;
 
+	@SerializedName("order_url")
+	private String orderUrl;
+
 	@SerializedName("R")
-	private com.example.zomato.R R;
+	private R R;
 
 	@SerializedName("all_reviews_count")
 	private int allReviewsCount;
@@ -190,6 +195,14 @@ public class Restaurant{
 		return priceRange;
 	}
 
+	public void setOrderDeeplink(String orderDeeplink){
+		this.orderDeeplink = orderDeeplink;
+	}
+
+	public String getOrderDeeplink(){
+		return orderDeeplink;
+	}
+
 	public void setSwitchToOrderMenu(int switchToOrderMenu){
 		this.switchToOrderMenu = switchToOrderMenu;
 	}
@@ -206,11 +219,19 @@ public class Restaurant{
 		return photos;
 	}
 
-	public void setR(com.example.zomato.R R){
+	public void setOrderUrl(String orderUrl){
+		this.orderUrl = orderUrl;
+	}
+
+	public String getOrderUrl(){
+		return orderUrl;
+	}
+
+	public void setR(R R){
 		this.R = R;
 	}
 
-	public com.example.zomato.R getR(){
+	public R getR(){
 		return R;
 	}
 
@@ -458,8 +479,10 @@ public class Restaurant{
 			",average_cost_for_two = '" + averageCostForTwo + '\'' + 
 			",menu_url = '" + menuUrl + '\'' + 
 			",price_range = '" + priceRange + '\'' + 
+			",order_deeplink = '" + orderDeeplink + '\'' + 
 			",switch_to_order_menu = '" + switchToOrderMenu + '\'' + 
 			",photos = '" + photos + '\'' + 
+			",order_url = '" + orderUrl + '\'' + 
 			",R = '" + R + '\'' + 
 			",all_reviews_count = '" + allReviewsCount + '\'' + 
 			",is_table_reservation_supported = '" + isTableReservationSupported + '\'' + 

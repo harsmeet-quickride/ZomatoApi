@@ -1,4 +1,4 @@
-package com.example.zomato;
+package com.example.zomato.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -8,21 +8,19 @@ import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
+import com.example.zomato.R;
 import com.example.zomato.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-
     private final FragmentManager mFragmentManager = getSupportFragmentManager();
     private ActivityMainBinding mBinding;
     private HomeFragment mHomeFragment;
     private SavedFragment mSavedFragment;
     private int mCurrentFragment = 0;
-
 
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -86,5 +84,6 @@ public class MainActivity extends AppCompatActivity {
                     .add(R.id.fragment_container, mHomeFragment)
                     .commit();
         }
+
     }
 }

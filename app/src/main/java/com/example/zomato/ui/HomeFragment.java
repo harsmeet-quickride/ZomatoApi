@@ -1,4 +1,4 @@
-package com.example.zomato;
+package com.example.zomato.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,13 +8,14 @@ import android.view.ViewGroup;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
-import com.example.zomato.databinding.FragmentRestaurantBinding;
+import com.example.zomato.R;
+import com.example.zomato.adapter.ViewPagerAdapter;
+import com.example.zomato.databinding.FragmentHomeBinding;
 import com.google.android.material.tabs.TabLayout;
-
 
 public class HomeFragment extends Fragment {
 
-    private FragmentRestaurantBinding mBinding;
+    private FragmentHomeBinding mBinding;
     private final String[] CATEGORIES = {
             "A",
             "BBB",
@@ -54,7 +55,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         mBinding = DataBindingUtil.inflate(inflater,
-                R.layout.fragment_restaurant, container, false);
+                R.layout.fragment_home, container, false);
 
         if (getActivity() != null) {
             ViewPagerAdapter viewPager = new ViewPagerAdapter(getChildFragmentManager(), CATEGORIES);

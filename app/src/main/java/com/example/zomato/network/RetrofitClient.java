@@ -19,15 +19,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RetrofitClient {
 
-    private static final String NEWS_API_URL = "https://developers.zomato.com/api/v2.1/";
+    private static final String BASE_API_URL = "https://developers.zomato.com/api/v2.1/";
 
     private static final Object LOCK = new Object();
-    private static RetrofitApi sNewsApi;
+    private static RetrofitApi sApi;
     private static RetrofitClient sInstance;
 
     public static RetrofitApi getInstance() {
 
-        if (sInstance == null || sNewsApi == null) {
+        if (sInstance == null || sApi == null) {
             synchronized (LOCK) {
 
                 Interceptor interceptor = new Interceptor() {
@@ -37,10 +37,11 @@ public class RetrofitClient {
                         HttpUrl originalHttpUrl = original.url();
 
                         HttpUrl url = originalHttpUrl.newBuilder()
-                                .addQueryParameter("api_key", BuildConfig.ApiKey)
+                                //.addQueryParameter()
                                 .build();
 
                         Request.Builder requestBuilder = original.newBuilder()
+                                .addHeader("user-key", BuildConfig.ApiKey)
                                 .url(url);
 
                         Request request = requestBuilder.build();
@@ -58,16 +59,16 @@ public class RetrofitClient {
                 Retrofit.Builder builder =
                         new Retrofit
                                 .Builder()
-                                .baseUrl(NEWS_API_URL)
+                                .baseUrl(BASE_API_URL)
                                 .client(client)
                                 .addConverterFactory(GsonConverterFactory.create(new Gson()));
 
-                // Set NewsApi instance
-                sNewsApi = builder.build().create(RetrofitApi.class);
+                // Set Api instance
+                sApi = builder.build().create(RetrofitApi.class);
                 sInstance = new RetrofitClient();
             }
         }
-        return sNewsApi;
+        return sApi;
     }
 
 

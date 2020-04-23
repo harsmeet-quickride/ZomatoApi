@@ -12,16 +12,16 @@ import retrofit2.http.Query;
  */
 public interface RetrofitApi {
 
-    @GET("/search")
+    @GET("search")
     Call<ApiResponse> search(@Query("q") String query,
-                                       @Query("start") int start,
-                                       @Query("count") int count,
-                                       @Query("lat") double lat,
-                                       @Query("lon") double lon,
-                                       @Query("radius") double radius,
-                                       @Query("cuisines") String cuisinesId);
+                             @Query("start") int start,
+                             @Query("count") int count,
+                             @Query("lat") double lat,
+                             @Query("lon") double lon,
+                             @Query("radius") double radius,
+                             @Query("cuisines") String cuisinesIds);
 
-    @GET("/search")
+    @GET("search")
     Call<ApiResponse> res(@Query("q") String query,
                              @Query("start") int start,
                              @Query("count") int count,

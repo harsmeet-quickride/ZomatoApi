@@ -7,7 +7,15 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.zomato.model.AllReviews;
+import com.example.zomato.model.Location;
+import com.example.zomato.model.PhotosItem;
+import com.example.zomato.model.RestaurantsItem;
+import com.example.zomato.model.UserRating;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -18,64 +26,225 @@ import com.google.gson.Gson;
 @Entity(tableName = "restaurant")
 public class Restaurant {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @PrimaryKey()
+    @NonNull
+    private String id;
 
     @NonNull
-    @ColumnInfo(name = "title")
-    private String title;
+    @ColumnInfo(name = "has_online_delivery")
+    private int hasOnlineDelivery;
 
     @NonNull
-    @ColumnInfo(name = "desc")
-    private String desc;
+    @ColumnInfo(name = "average_cost_for_two")
+    private int averageCostForTwo;
+
+    @NonNull
+    @ColumnInfo(name = "menu_url")
+    private String menuUrl;
+
+    @NonNull
+    @ColumnInfo(name = "price_range")
+    private int priceRange;
+
+    @NonNull
+    @ColumnInfo(name = "timings")
+    private String timings;
+
+    @NonNull
+    @ColumnInfo(name = "user_rating")
+    private String userRating;
+
+    @NonNull
+    @ColumnInfo(name = "is_delivering_now")
+    private int isDeliveringNow;
+
+    @NonNull
+    @ColumnInfo(name = "url")
+    private String url;
+
+    @NonNull
+    @ColumnInfo(name = "cuisines")
+    private String cuisines;
+
+    @NonNull
+    @ColumnInfo(name = "phone_numbers")
+    private String phoneNumbers;
+
+    @NonNull
+    @ColumnInfo(name = "name")
+    private String name;
+
+    @NonNull
+    @ColumnInfo(name = "location")
+    private String location;
 
     @NonNull
     @ColumnInfo(name = "timestamp")
-    private Long timestamp;
+    private long timestamp;
 
-    public Restaurant(@NonNull String title, @NonNull String desc, @NonNull Long timestamp) {
-        this.title = title;
-        this.desc = desc;
-        this.timestamp = timestamp;
+    public Restaurant() {
     }
 
-    public int getId() {
+    public Restaurant(String id, int hasOnlineDelivery, int averageCostForTwo, @NonNull String menuUrl, int priceRange, @NonNull String timings, @NonNull UserRating userRating, int isDeliveringNow, @NonNull String url, @NonNull String cuisines, @NonNull String phoneNumbers, @NonNull String name, @NonNull String location) {
+        this.id = id;
+        this.hasOnlineDelivery = hasOnlineDelivery;
+        this.averageCostForTwo = averageCostForTwo;
+        this.menuUrl = menuUrl;
+        this.priceRange = priceRange;
+        this.timings = timings;
+        this.userRating = userRating.getAggregateRating();
+        this.isDeliveringNow = isDeliveringNow;
+        this.url = url;
+        this.cuisines = cuisines;
+        this.phoneNumbers = phoneNumbers;
+        this.name = name;
+        this.location = location;
+        this.timestamp = System.currentTimeMillis();
+    }
+
+    @NonNull
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(@NonNull String id) {
         this.id = id;
     }
 
-    @NonNull
-    public String getTitle() {
-        return title;
+    public int getHasOnlineDelivery() {
+        return hasOnlineDelivery;
     }
 
-    public void setTitle(@NonNull String title) {
-        this.title = title;
+    public void setHasOnlineDelivery(int hasOnlineDelivery) {
+        this.hasOnlineDelivery = hasOnlineDelivery;
     }
 
-    @NonNull
-    public String getDesc() {
-        return desc;
+    public int getAverageCostForTwo() {
+        return averageCostForTwo;
     }
 
-    public void setDesc(@NonNull String desc) {
-        this.desc = desc;
+    public void setAverageCostForTwo(int averageCostForTwo) {
+        this.averageCostForTwo = averageCostForTwo;
     }
 
     @NonNull
-    public Long getTimestamp() {
+    public String getMenuUrl() {
+        return menuUrl;
+    }
+
+    public void setMenuUrl(@NonNull String menuUrl) {
+        this.menuUrl = menuUrl;
+    }
+
+    public int getPriceRange() {
+        return priceRange;
+    }
+
+    public void setPriceRange(int priceRange) {
+        this.priceRange = priceRange;
+    }
+
+    @NonNull
+    public String getTimings() {
+        return timings;
+    }
+
+    public void setTimings(@NonNull String timings) {
+        this.timings = timings;
+    }
+
+    @NonNull
+    public String getUserRating() {
+        return userRating;
+    }
+
+    public void setUserRating(@NonNull String userRating) {
+        this.userRating = userRating;
+    }
+
+    public int getIsDeliveringNow() {
+        return isDeliveringNow;
+    }
+
+    public void setIsDeliveringNow(int isDeliveringNow) {
+        this.isDeliveringNow = isDeliveringNow;
+    }
+
+    @NonNull
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(@NonNull String url) {
+        this.url = url;
+    }
+
+    @NonNull
+    public String getCuisines() {
+        return cuisines;
+    }
+
+    public void setCuisines(@NonNull String cuisines) {
+        this.cuisines = cuisines;
+    }
+
+    @NonNull
+    public String getPhoneNumbers() {
+        return phoneNumbers;
+    }
+
+    public void setPhoneNumbers(@NonNull String phoneNumbers) {
+        this.phoneNumbers = phoneNumbers;
+    }
+
+    @NonNull
+    public String getName() {
+        return name;
+    }
+
+    public void setName(@NonNull String name) {
+        this.name = name;
+    }
+
+    @NonNull
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(@NonNull String location) {
+        this.location = location;
+    }
+
+    public long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(@NonNull Long timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 
-    public String toJsonString() {
-        return new Gson().toJson(this);
-    }
+    public static List<Restaurant> getListFromResponse(List<RestaurantsItem> list) {
 
+        List<Restaurant> restaurants = new ArrayList<>();
+
+        for (RestaurantsItem restaurantsItem : list) {
+
+            if (restaurantsItem.getRestaurant() != null) {
+
+                com.example.zomato.model.Restaurant model = restaurantsItem.getRestaurant();
+
+                Restaurant db = new Restaurant(
+                        model.getId(),
+                        model.getHasOnlineDelivery(), model.getAverageCostForTwo(),
+                        model.getMenuUrl(), model.getPriceRange(), model.getTimings(),
+                        model.getUserRating(),
+                        model.getIsDeliveringNow(), model.getUrl(), model.getCuisines(), model.getPhoneNumbers(),
+                        model.getName(), new Gson().toJson(model.getLocation(), Location.class)
+                );
+                restaurants.add(db);
+            }
+        }
+
+        return restaurants;
+    }
 }

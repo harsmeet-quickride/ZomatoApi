@@ -1,19 +1,20 @@
-package com.example.zomato;
-
+package com.example.zomato.adapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import com.example.zomato.ui.RestaurantFragment;
+
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
-    private final RestaurantFragment[] mRestaurantFragments;
 
+    private final RestaurantFragment[] mRestaurantFragments;
 
     public ViewPagerAdapter(FragmentManager fm, String[] categories) {
         super(fm);
         mRestaurantFragments = new RestaurantFragment[categories.length];
         for (int i = 0; i < categories.length; i++) {
-            mRestaurantFragments[i] = RestaurantFragment.newInstance(/*categories[i]*/);
+            mRestaurantFragments[i] = RestaurantFragment.newInstance(categories[i]);
         }
     }
 

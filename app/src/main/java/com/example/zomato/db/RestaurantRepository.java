@@ -5,8 +5,21 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+
+import com.example.zomato.utils.AppExecutor;
+import com.example.zomato.utils.Constant;
+import com.example.zomato.model.ApiResponse;
+import com.example.zomato.model.RestaurantsItem;
+import com.example.zomato.network.RetrofitApi;
+import com.example.zomato.network.RetrofitClient;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Abstracted Repository as promoted by the Architecture Guide.
@@ -14,22 +27,74 @@ import java.util.List;
  */
 public class RestaurantRepository {
 
+    private static final String TAG = "RestaurantRepository";
     private RestaurantDao mRestaurantDao;
     private LiveData<List<Restaurant>> mRestaurantList;
-    private static final String TAG = "RestaurantRepository";
+    private static final Object LOCK = new Object();
+    private static RestaurantRepository sInstance;
+    private final MutableLiveData<List<Restaurant>> mRestaurantLiveData;
+    private static RetrofitApi sApi;
+    private final AppExecutor mExecutor;
+
+
+    public synchronized static RestaurantRepository getInstance(Application context) {
+        if (sInstance == null) {
+            synchronized (LOCK) {
+                sInstance = new RestaurantRepository(context);
+            }
+        }
+        return sInstance;
+    }
+
     /**
      * Room Database is manged through this repository. Called form ViewModel
      *
      * @param application needed to create db instance
      */
-    public RestaurantRepository(Application application) {
+    private RestaurantRepository(Application application) {
         RestaurantDatabase db = RestaurantDatabase.getDatabase(application);
         mRestaurantDao = db.restaurantDao();
-        mRestaurantList = mRestaurantDao.getAllRestaurants();
+        mRestaurantList = new MutableLiveData<>();
+        mRestaurantLiveData = new MutableLiveData<>();
+        mExecutor = AppExecutor.getInstance();
+        sApi = RetrofitClient.getInstance();
+
+        mRestaurantLiveData.observeForever(new Observer<List<Restaurant>>() {
+            @Override
+            public void onChanged(final List<Restaurant> restaurants) {
+                mExecutor.getDiskIO().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        mRestaurantDao.bulkInsert(restaurants);
+                    }
+                });
+            }
+        });
     }
 
-    public LiveData<List<Restaurant>> getmRestaurantList() {
-        return mRestaurantList;
+    public LiveData<List<Restaurant>> getRestaurantList(String query, String cuisinesIds) {
+
+        sApi.search(query, Constant.start, Constant.count, Constant.lat, Constant.lon,
+                Constant.radius, cuisinesIds).enqueue(new Callback<ApiResponse>() {
+            @Override
+            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+
+                if (response.body() != null) {
+
+                    List<RestaurantsItem> restaurantList = response.body().getRestaurants();
+                    final List<Restaurant> dbList = Restaurant.getListFromResponse(restaurantList);
+                    mRestaurantLiveData.setValue(dbList);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse> call, Throwable t) {
+
+                Log.i(TAG, "onFailure: ");
+            }
+        });
+        return mRestaurantDao.getAllRestaurants();
     }
 
     public Restaurant getRestaurantById(int id) {

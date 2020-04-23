@@ -19,12 +19,6 @@ public class User{
 	@SerializedName("name")
 	private String name;
 
-	@SerializedName("foodie_level_num")
-	private int foodieLevelNum;
-
-	@SerializedName("foodie_level")
-	private String foodieLevel;
-
 	@SerializedName("zomato_handle")
 	private String zomatoHandle;
 
@@ -68,22 +62,6 @@ public class User{
 		return name;
 	}
 
-	public void setFoodieLevelNum(int foodieLevelNum){
-		this.foodieLevelNum = foodieLevelNum;
-	}
-
-	public int getFoodieLevelNum(){
-		return foodieLevelNum;
-	}
-
-	public void setFoodieLevel(String foodieLevel){
-		this.foodieLevel = foodieLevel;
-	}
-
-	public String getFoodieLevel(){
-		return foodieLevel;
-	}
-
 	public void setZomatoHandle(String zomatoHandle){
 		this.zomatoHandle = zomatoHandle;
 	}
@@ -101,8 +79,6 @@ public class User{
 			",profile_url = '" + profileUrl + '\'' + 
 			",foodie_color = '" + foodieColor + '\'' + 
 			",name = '" + name + '\'' + 
-			",foodie_level_num = '" + foodieLevelNum + '\'' + 
-			",foodie_level = '" + foodieLevel + '\'' + 
 			",zomato_handle = '" + zomatoHandle + '\'' + 
 			"}";
 		}

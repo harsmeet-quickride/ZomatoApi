@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class UserRating{
 
 	@SerializedName("aggregate_rating")
-	private int aggregateRating;
+	private String aggregateRating;
 
 	@SerializedName("rating_color")
 	private String ratingColor;
@@ -17,22 +17,13 @@ public class UserRating{
 	private String ratingText;
 
 	@SerializedName("votes")
-	private int votes;
+	private String votes;
 
-	@SerializedName("rating_tool_tip")
-	private String ratingToolTip;
-
-	@SerializedName("custom_rating_text_background")
-	private String customRatingTextBackground;
-
-	@SerializedName("custom_rating_text")
-	private String customRatingText;
-
-	public void setAggregateRating(int aggregateRating){
+	public void setAggregateRating(String aggregateRating){
 		this.aggregateRating = aggregateRating;
 	}
 
-	public int getAggregateRating(){
+	public String getAggregateRating(){
 		return aggregateRating;
 	}
 
@@ -60,36 +51,12 @@ public class UserRating{
 		return ratingText;
 	}
 
-	public void setVotes(int votes){
+	public void setVotes(String votes){
 		this.votes = votes;
 	}
 
-	public int getVotes(){
+	public String getVotes(){
 		return votes;
-	}
-
-	public void setRatingToolTip(String ratingToolTip){
-		this.ratingToolTip = ratingToolTip;
-	}
-
-	public String getRatingToolTip(){
-		return ratingToolTip;
-	}
-
-	public void setCustomRatingTextBackground(String customRatingTextBackground){
-		this.customRatingTextBackground = customRatingTextBackground;
-	}
-
-	public String getCustomRatingTextBackground(){
-		return customRatingTextBackground;
-	}
-
-	public void setCustomRatingText(String customRatingText){
-		this.customRatingText = customRatingText;
-	}
-
-	public String getCustomRatingText(){
-		return customRatingText;
 	}
 
 	@Override
@@ -101,9 +68,6 @@ public class UserRating{
 			",rating_obj = '" + ratingObj + '\'' + 
 			",rating_text = '" + ratingText + '\'' + 
 			",votes = '" + votes + '\'' + 
-			",rating_tool_tip = '" + ratingToolTip + '\'' + 
-			",custom_rating_text_background = '" + customRatingTextBackground + '\'' + 
-			",custom_rating_text = '" + customRatingText + '\'' + 
 			"}";
 		}
 }
