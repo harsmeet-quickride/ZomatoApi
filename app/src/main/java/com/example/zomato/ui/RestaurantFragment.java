@@ -14,8 +14,10 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.zomato.R;
+import com.example.zomato.adapter.RestaurantAdapter;
 import com.example.zomato.databinding.FragmentRestaurantBinding;
 import com.example.zomato.db.Restaurant;
 import com.example.zomato.viewModel.RestaurantViewModel;
@@ -30,6 +32,8 @@ public class RestaurantFragment extends Fragment {
 
     private static final String TAG = "RestaurantFragment";
     private FragmentRestaurantBinding mBinding;
+    private String CUISINE = "";
+    public static final String PARAM = "CUISINE";
 
     public RestaurantFragment() {
     }
@@ -40,7 +44,7 @@ public class RestaurantFragment extends Fragment {
             return fragment;
         }
         Bundle args = new Bundle();
-        args.putString(cuisines, cuisines);
+        args.putString(PARAM, cuisines);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,21 +54,32 @@ public class RestaurantFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil
                 .inflate(inflater, R.layout.fragment_restaurant, container, false);
-
         return mBinding.getRoot();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            CUISINE = getArguments().getString(PARAM);
+        }
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
         RestaurantViewModel viewModel = new ViewModelProvider(this).get(RestaurantViewModel.class);
+        mBinding.rvRestaurant.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        LiveData<List<Restaurant>> list = viewModel.getAllRestaurants("chicken", "");
+        LiveData<List<Restaurant>> list = viewModel.getAllRestaurants("chicken", CUISINE);
         list.observe((LifecycleOwner) this, new Observer<List<Restaurant>>() {
             @Override
             public void onChanged(List<Restaurant> restaurants) {
+
+                RestaurantAdapter adapter = new RestaurantAdapter(restaurants, null);
+                mBinding.rvRestaurant.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
 
                 Log.i(TAG, "onChanged: " + restaurants.size());
             }

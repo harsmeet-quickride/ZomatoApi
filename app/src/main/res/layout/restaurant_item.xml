@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.example.zomato.utils.BindingUtils" />
+
+        <variable
+            name="restaurant"
+            type="com.example.zomato.db.Restaurant" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:padding="12dp"
+        tools:context=".ui.MainActivity">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:maxLines="1"
+            android:text="@{restaurant.name}"
+            android:textAppearance="@style/AppTheme.Bold"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/iv_thumb"
+            app:layout_constraintTop_toTopOf="@id/iv_thumb"
+            tools:text="@string/sample_title" />
+
+        <ImageView
+            android:id="@+id/iv_thumb"
+            android:layout_width="82dp"
+            android:layout_height="82dp"
+            android:contentDescription="@string/image_desc"
+            android:src="@color/cardBackground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            bind:sourceUrl="@{restaurant.imageUrl}" />
+
+        <TextView
+            android:id="@+id/tv_highlight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:maxLines="1"
+            android:text="@{restaurant.highlights}"
+            android:textColor="@color/colorGrey"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/tv_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            tools:text="@string/sample_highlights" />
+
+
+        <TextView
+            android:id="@+id/tv_rate_person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:maxLines="1"
+            android:text="@{Integer.toString(restaurant.averageCostForTwo)}"
+            android:textColor="@color/colorGrey"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/tv_highlight"
+            app:layout_constraintTop_toBottomOf="@id/tv_highlight"
+            tools:text="@string/sample_per_person" />
+
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:padding="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_thumb">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{restaurant.userRating}"
+                android:textColor="@color/colorWhite"
+                android:textSize="12sp"
+                tools:text="@string/sample_rating" />
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

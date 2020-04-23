@@ -7,4 +7,13 @@
 
 
     <color name="colorGrey">#9E9E9E</color>
+    <color name="cardBackground">#ddd</color>
+
+    <color name="colorWhite">#F5F5F5</color>
+    <color name="colorTextPrimary">#ffffff</color>
+    <color name="colorTextSecondary">#000000</color>
+    <color name="recyclerViewDivider">#61ced7db</color>
+    <color name="gradient_start">#7f000000</color>
+    <color name="gradient_end">#00000000</color>
+    <color name="option_item_tint_color">#ad000000</color>
 </resources>

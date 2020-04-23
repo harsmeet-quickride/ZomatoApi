@@ -16,24 +16,22 @@ import com.google.android.material.tabs.TabLayout;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding mBinding;
-    private final String[] CATEGORIES = {
-            "A",
-            "BBB",
-            "CCCC",
-            "D",
-            "EEEEEE",
-            "FFFF",
-            "GGG"
+    private final String[] CUISINE = {
+            "North Indian",
+            "Continental",
+            "South Indian",
+            "Chinese",
+            "Healthy",
+            "Hyderabadi"
     };
-    private final int[] CATEGORIES_ICON = {
-            R.drawable.ic_launcher_background,
-            R.drawable.ic_launcher_background,
-            R.drawable.ic_launcher_background,
-            R.drawable.ic_launcher_background,
-            R.drawable.ic_launcher_background,
-            R.drawable.ic_launcher_background,
-            R.drawable.ic_launcher_background
 
+    private final String[] CUISINE_ID = {
+            "50",
+            "35",
+            "85",
+            "25",
+            "143",
+            "49"
     };
 
     public HomeFragment() {
@@ -58,9 +56,10 @@ public class HomeFragment extends Fragment {
                 R.layout.fragment_home, container, false);
 
         if (getActivity() != null) {
-            ViewPagerAdapter viewPager = new ViewPagerAdapter(getChildFragmentManager(), CATEGORIES);
-            mBinding.viewpagerHeadlines.setAdapter(viewPager);
-            mBinding.tablayoutHeadlines.setupWithViewPager(mBinding.viewpagerHeadlines);
+            ViewPagerAdapter viewPager = new ViewPagerAdapter(getChildFragmentManager(), CUISINE_ID);
+            mBinding.viewpager.setAdapter(viewPager);
+            //mBinding.viewpager.setOffscreenPageLimit(1);
+            mBinding.tablayout.setupWithViewPager(mBinding.viewpager);
             setupTabIcons();
         }
         return mBinding.getRoot();
@@ -68,10 +67,10 @@ public class HomeFragment extends Fragment {
 
     private void setupTabIcons() {
         TabLayout.Tab tab;
-        for (int i = 0; i < CATEGORIES.length; i++) {
-            tab = mBinding.tablayoutHeadlines.getTabAt(i);
+        for (int i = 0; i < CUISINE.length; i++) {
+            tab = mBinding.tablayout.getTabAt(i);
             if (tab != null) {
-                tab.setIcon(CATEGORIES_ICON[i]).setText(CATEGORIES[i]);
+                tab.setText(CUISINE[i]);
             }
         }
     }

@@ -1,15 +1,11 @@
 package com.example.zomato.db;
 
-import android.os.Parcelable;
-
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.example.zomato.model.AllReviews;
 import com.example.zomato.model.Location;
-import com.example.zomato.model.PhotosItem;
 import com.example.zomato.model.RestaurantsItem;
 import com.example.zomato.model.UserRating;
 import com.google.gson.Gson;
@@ -39,8 +35,8 @@ public class Restaurant {
     private int averageCostForTwo;
 
     @NonNull
-    @ColumnInfo(name = "menu_url")
-    private String menuUrl;
+    @ColumnInfo(name = "highlights")
+    private String highlights;
 
     @NonNull
     @ColumnInfo(name = "price_range")
@@ -59,8 +55,8 @@ public class Restaurant {
     private int isDeliveringNow;
 
     @NonNull
-    @ColumnInfo(name = "url")
-    private String url;
+    @ColumnInfo(name = "image_url")
+    private String imageUrl;
 
     @NonNull
     @ColumnInfo(name = "cuisines")
@@ -85,16 +81,16 @@ public class Restaurant {
     public Restaurant() {
     }
 
-    public Restaurant(String id, int hasOnlineDelivery, int averageCostForTwo, @NonNull String menuUrl, int priceRange, @NonNull String timings, @NonNull UserRating userRating, int isDeliveringNow, @NonNull String url, @NonNull String cuisines, @NonNull String phoneNumbers, @NonNull String name, @NonNull String location) {
+    public Restaurant(String id, int hasOnlineDelivery, int averageCostForTwo, @NonNull String highlights, int priceRange, @NonNull String timings, @NonNull UserRating userRating, int isDeliveringNow, @NonNull String url, @NonNull String cuisines, @NonNull String phoneNumbers, @NonNull String name, @NonNull String location) {
         this.id = id;
         this.hasOnlineDelivery = hasOnlineDelivery;
         this.averageCostForTwo = averageCostForTwo;
-        this.menuUrl = menuUrl;
+        this.highlights = highlights;
         this.priceRange = priceRange;
         this.timings = timings;
         this.userRating = userRating.getAggregateRating();
         this.isDeliveringNow = isDeliveringNow;
-        this.url = url;
+        this.imageUrl = url;
         this.cuisines = cuisines;
         this.phoneNumbers = phoneNumbers;
         this.name = name;
@@ -128,12 +124,12 @@ public class Restaurant {
     }
 
     @NonNull
-    public String getMenuUrl() {
-        return menuUrl;
+    public String getHighlights() {
+        return highlights;
     }
 
-    public void setMenuUrl(@NonNull String menuUrl) {
-        this.menuUrl = menuUrl;
+    public void setHighlights(@NonNull String highlights) {
+        this.highlights = highlights;
     }
 
     public int getPriceRange() {
@@ -171,12 +167,12 @@ public class Restaurant {
     }
 
     @NonNull
-    public String getUrl() {
-        return url;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setUrl(@NonNull String url) {
-        this.url = url;
+    public void setImageUrl(@NonNull String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @NonNull
@@ -235,11 +231,18 @@ public class Restaurant {
 
                 Restaurant db = new Restaurant(
                         model.getId(),
-                        model.getHasOnlineDelivery(), model.getAverageCostForTwo(),
-                        model.getMenuUrl(), model.getPriceRange(), model.getTimings(),
+                        model.getHasOnlineDelivery(),
+                        model.getAverageCostForTwo(),
+                        model.getHighlights().toString(),
+                        model.getPriceRange(),
+                        model.getTimings(),
                         model.getUserRating(),
-                        model.getIsDeliveringNow(), model.getUrl(), model.getCuisines(), model.getPhoneNumbers(),
-                        model.getName(), new Gson().toJson(model.getLocation(), Location.class)
+                        model.getIsDeliveringNow(),
+                        model.getThumb(),
+                        model.getCuisines(),
+                        model.getPhoneNumbers(),
+                        model.getName(),
+                        new Gson().toJson(model.getLocation(), Location.class)
                 );
                 restaurants.add(db);
             }

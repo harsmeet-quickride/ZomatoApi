@@ -10,11 +10,11 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private final RestaurantFragment[] mRestaurantFragments;
 
-    public ViewPagerAdapter(FragmentManager fm, String[] categories) {
+    public ViewPagerAdapter(FragmentManager fm, String[] cuisine) {
         super(fm);
-        mRestaurantFragments = new RestaurantFragment[categories.length];
-        for (int i = 0; i < categories.length; i++) {
-            mRestaurantFragments[i] = RestaurantFragment.newInstance(categories[i]);
+        mRestaurantFragments = new RestaurantFragment[cuisine.length];
+        for (int i = 0; i < cuisine.length; i++) {
+            mRestaurantFragments[i] = RestaurantFragment.newInstance(cuisine[i]);
         }
     }
 

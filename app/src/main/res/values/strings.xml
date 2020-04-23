@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Foody</string>
     <string name="title_fav">Favorite</string>
+
+    <string name="sample_per_person">\u20B9 4500</string>
+    <string name="sample_title">Aqua - The Park</string>
+    <string name="sample_highlights">Lunch, Wifi, Dinner, Cash</string>
+    <string name="sample_rating">3.9</string>
+    <string name="sample_description">The Sunshine State is home to Mr Trump\'s golf resort, but bigger targets lie elsewhere in the US.</string>
+    <string name="image_desc">Image for the News Post</string>
 </resources>
