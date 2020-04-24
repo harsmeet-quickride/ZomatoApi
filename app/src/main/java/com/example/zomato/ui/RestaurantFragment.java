@@ -34,19 +34,22 @@ public class RestaurantFragment extends Fragment implements RestaurantAdapter.Re
     private static final String TAG = "RestaurantFragment";
     private FragmentRestaurantBinding mBinding;
     private String CUISINE = "";
-    private static final String PARAM = "CUISINE";
+    private String QUERY = "";
+    private static final String PARAM_1 = "CUISINE";
+    private static final String PARAM_2 = "QUERY";
     private RestaurantAdapter mAdapter;
 
     public RestaurantFragment() {
     }
 
-    public static RestaurantFragment newInstance(String cuisines) {
+    public static RestaurantFragment newInstance(String query, String cuisines) {
         RestaurantFragment fragment = new RestaurantFragment();
         if (cuisines == null) {
             return fragment;
         }
         Bundle args = new Bundle();
-        args.putString(PARAM, cuisines);
+        args.putString(PARAM_1, cuisines);
+        args.putString(PARAM_2, query);
         fragment.setArguments(args);
         return fragment;
     }
@@ -63,7 +66,8 @@ public class RestaurantFragment extends Fragment implements RestaurantAdapter.Re
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            CUISINE = getArguments().getString(PARAM);
+            CUISINE = getArguments().getString(PARAM_1);
+            QUERY = getArguments().getString(PARAM_2);
         }
     }
 
@@ -74,7 +78,7 @@ public class RestaurantFragment extends Fragment implements RestaurantAdapter.Re
         RestaurantViewModel viewModel = new ViewModelProvider(this).get(RestaurantViewModel.class);
         mBinding.rvRestaurant.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        LiveData<List<Restaurant>> list = viewModel.getAllRestaurants("", CUISINE);
+        LiveData<List<Restaurant>> list = viewModel.getAllRestaurants(QUERY, CUISINE);
         mAdapter = new RestaurantAdapter();
         mAdapter.setListener(this);
         mBinding.rvRestaurant.setAdapter(mAdapter);

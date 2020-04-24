@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Foody</string>
+    <string name="title_search">Search</string>
     <string name="title_saved">Saved</string>
 
+    <string name="search_hint">Search for restaurants</string>
     <string name="sample_per_person">\u20B9 4500</string>
     <string name="sample_title">Aqua - The Park</string>
     <string name="sample_highlights">Lunch, Wifi, Dinner, Cash</string>

@@ -32,4 +32,7 @@ public interface RestaurantDao {
 
     @Query("UPDATE restaurant SET timestamp = :timeStamp, is_saved = :isSaved WHERE id = :id")
     int updateSave(String id, boolean isSaved, long timeStamp);
+
+    @Query("DELETE from restaurant WHERE is_saved=0")
+    void deleteUnsaved();
 }

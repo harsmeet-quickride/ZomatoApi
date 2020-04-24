@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -18,6 +19,8 @@ import static com.example.zomato.utils.Constant.CUISINE_DATA;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding mBinding;
+    private static final String PARAM_1 = "QUERY";
+    private String QUERY = "";
 
     public HomeFragment() {
 
@@ -27,18 +30,29 @@ public class HomeFragment extends Fragment {
         CUISINE_DATA.put(25, "Chinese");
         CUISINE_DATA.put(143, "Healthy");
         CUISINE_DATA.put(49, "Hyderabadi");
+
     }
 
-    public static HomeFragment newInstance() {
-        return new HomeFragment();
+    public static HomeFragment newInstance(String query) {
+
+        HomeFragment fragment = new HomeFragment();
+        if (query == null) {
+            return fragment;
+        }
+        Bundle args = new Bundle();
+        args.putString(PARAM_1, query);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
+        if (getArguments() != null) {
 
+            QUERY = getArguments().getString(PARAM_1);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,7 +62,7 @@ public class HomeFragment extends Fragment {
                 R.layout.fragment_home, container, false);
 
         if (getActivity() != null) {
-            ViewPagerAdapter viewPager = new ViewPagerAdapter(getChildFragmentManager(), CUISINE_DATA);
+            ViewPagerAdapter viewPager = new ViewPagerAdapter(getChildFragmentManager(), QUERY, CUISINE_DATA);
             mBinding.viewpager.setAdapter(viewPager);
             mBinding.viewpager.setOffscreenPageLimit(1);
             mBinding.tablayout.setupWithViewPager(mBinding.viewpager);

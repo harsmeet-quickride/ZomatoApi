@@ -1,8 +1,6 @@
 package com.example.zomato.db;
 
-import android.app.Application;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -118,35 +116,13 @@ public class RestaurantRepository {
         return mRestaurantDao.getRestaurant(id);
     }
 
-    /**
-     * Executes a background task to insert {@link Restaurant} in database
-     *
-     * @param restaurant instance of {@link Restaurant}
-     */
-    public void insert(Restaurant restaurant) {
-        new insertAsyncTask(mRestaurantDao).execute(restaurant);
+    public void deleteUnsaved(){
+        mExecutor.getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mRestaurantDao.deleteUnsaved();
+            }
+        });
     }
 
-    private static class insertAsyncTask extends AsyncTask<Restaurant, Void, Long> {
-
-        private RestaurantDao mAsyncTaskDao;
-
-        insertAsyncTask(RestaurantDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Long doInBackground(final Restaurant... params) {
-            return mAsyncTaskDao.insert(params[0]);
-        }
-
-        /**
-         * @param aLong id of {@link Restaurant} column. If failed return -1
-         */
-        @Override
-        protected void onPostExecute(Long aLong) {
-            super.onPostExecute(aLong);
-            Log.i(TAG, "onPostExecute Result: " + aLong);
-        }
-    }
 }

@@ -4,13 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.zomato.R;
 import com.example.zomato.databinding.ActivityMainBinding;
+import com.example.zomato.db.RestaurantRepository;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private HomeFragment mHomeFragment;
     private SavedFragment mSavedFragment;
     private int mCurrentFragment = 0;
+    private String QUERY = "";
+    private Fragment mSearchFragment = new Fragment();
 
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -35,15 +42,29 @@ public class MainActivity extends AppCompatActivity {
             switch (menuItem.getItemId()) {
 
                 case R.id.navigation_home:
+                    mBinding.fragmentContainer.setVisibility(View.VISIBLE);
+                    mBinding.searchContainer.setVisibility(View.GONE);
                     if (mHomeFragment == null) {
-                        mHomeFragment = HomeFragment.newInstance();
+                        mHomeFragment = HomeFragment.newInstance(QUERY);
                     }
                     mFragmentManager.beginTransaction()
                             .replace(R.id.fragment_container, mHomeFragment)
                             .commit();
                     return true;
 
+                case R.id.navigation_search:
+                    mBinding.fragmentContainer.setVisibility(View.GONE);
+                    mBinding.searchContainer.setVisibility(View.VISIBLE);
+                    mBinding.etSearch.setText("");
+
+                    mFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, mSearchFragment)
+                            .commit();
+                    return true;
+
                 case R.id.navigation_saved:
+                    mBinding.fragmentContainer.setVisibility(View.VISIBLE);
+                    mBinding.searchContainer.setVisibility(View.GONE);
                     if (mSavedFragment == null) {
                         mSavedFragment = SavedFragment.newInstance();
                     }
@@ -74,16 +95,47 @@ public class MainActivity extends AppCompatActivity {
 
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mBinding.navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
+        mBinding.navigation.setSelectedItemId(R.id.navigation_search);
         setupToolbar();
 
-        if (savedInstanceState == null) {
-            // Add a default fragment
-            mHomeFragment = HomeFragment.newInstance();
-            mFragmentManager.beginTransaction()
-                    .add(R.id.fragment_container, mHomeFragment)
-                    .commit();
-        }
+        mBinding.etSearch.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
 
+                if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    String query = mBinding.etSearch.getText().toString();
+                    handleSearch(query);
+                    return true;
+                }
+
+                return false;
+            }
+        });
+
+    }
+
+    private void handleSearch(String query) {
+
+        if (query.isEmpty()) {
+            Toast.makeText(this, "Field can't be empty", Toast.LENGTH_SHORT).show();
+        } else if (!query.matches("[a-zA-Z.? ]*")) {
+            Toast.makeText(this, "Please avoid special characters", Toast.LENGTH_SHORT).show();
+        } else {
+
+            QUERY = query;
+            RestaurantRepository db = RestaurantRepository.getInstance(this);
+            db.deleteUnsaved();
+
+            mBinding.fragmentContainer.setVisibility(View.VISIBLE);
+            mBinding.searchContainer.setVisibility(View.GONE);
+
+            mHomeFragment = HomeFragment.newInstance(QUERY);
+            mFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, mHomeFragment)
+                    .commit();
+
+            mBinding.navigation.setSelectedItemId(R.id.navigation_home);
+
+        }
     }
 }

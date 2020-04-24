@@ -13,12 +13,12 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private final RestaurantFragment[] mRestaurantFragments;
 
-    public ViewPagerAdapter(FragmentManager fm, SparseArray<String> cuisine) {
+    public ViewPagerAdapter(FragmentManager fm, String query, SparseArray<String> cuisine) {
         super(fm);
         mRestaurantFragments = new RestaurantFragment[cuisine.size()];
         for (int i = 0; i < cuisine.size(); i++) {
             int key = cuisine.keyAt(i);
-            mRestaurantFragments[i] = RestaurantFragment.newInstance(cuisine.get(key));
+            mRestaurantFragments[i] = RestaurantFragment.newInstance(query, cuisine.get(key));
         }
     }
 

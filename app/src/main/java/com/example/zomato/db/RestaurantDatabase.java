@@ -52,7 +52,7 @@ public abstract class RestaurantDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(final Void... params) {
-            //mDao.deleteAll();
+            //mDao.deleteUnsaved();
             return null;
         }
     }
