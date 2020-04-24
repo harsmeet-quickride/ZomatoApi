@@ -22,6 +22,8 @@ import com.example.zomato.adapter.RestaurantAdapter;
 import com.example.zomato.databinding.FragmentRestaurantBinding;
 import com.example.zomato.db.Restaurant;
 import com.example.zomato.db.RestaurantRepository;
+import com.example.zomato.utils.Helper;
+import com.example.zomato.utils.SortRestaurant;
 import com.example.zomato.viewModel.RestaurantViewModel;
 
 import java.util.List;
@@ -39,6 +41,8 @@ public class RestaurantFragment extends Fragment implements RestaurantAdapter.Re
     private static final String PARAM_1 = "CUISINE";
     private static final String PARAM_2 = "QUERY";
     private RestaurantAdapter mAdapter;
+    private SortRestaurant mSort;
+    private List<Restaurant> mSortedList;
 
     public RestaurantFragment() {
     }
@@ -87,9 +91,11 @@ public class RestaurantFragment extends Fragment implements RestaurantAdapter.Re
             @Override
             public void onChanged(List<Restaurant> restaurants) {
 
-                mAdapter.setRestaurants(restaurants);
+                List<Restaurant> sortedList = Helper.handleSorting(mSort, restaurants);
+                mAdapter.setRestaurants(sortedList);
                 mAdapter.notifyDataSetChanged();
 
+                mSortedList = restaurants;
                 Log.i(TAG, "onChanged: " + restaurants.size());
             }
         });
@@ -116,4 +122,14 @@ public class RestaurantFragment extends Fragment implements RestaurantAdapter.Re
         Log.i(TAG, "onItemOptionsClicked: ");
 
     }
+
+    public void setSort(SortRestaurant sort) {
+        this.mSort = sort;
+        if (mSortedList != null) {
+            List<Restaurant> sortedList = Helper.handleSorting(mSort, mSortedList);
+            mAdapter.setRestaurants(sortedList);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
 }

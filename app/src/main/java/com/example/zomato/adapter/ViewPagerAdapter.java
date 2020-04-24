@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.zomato.ui.RestaurantFragment;
+import com.example.zomato.utils.SortRestaurant;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
@@ -18,6 +19,14 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         for (int i = 0; i < cuisine.size(); i++) {
             int key = cuisine.keyAt(i);
             mRestaurantFragments[i] = RestaurantFragment.newInstance(query, cuisine.get(key));
+        }
+    }
+
+    public void setSort(SortRestaurant sort) {
+        if (mRestaurantFragments != null) {
+            for (RestaurantFragment mRestaurantFragment : mRestaurantFragments) {
+                mRestaurantFragment.setSort(sort);
+            }
         }
     }
 

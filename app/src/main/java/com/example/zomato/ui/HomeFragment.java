@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import com.example.zomato.R;
 import com.example.zomato.adapter.ViewPagerAdapter;
 import com.example.zomato.databinding.FragmentHomeBinding;
+import com.example.zomato.utils.SortRestaurant;
 import com.google.android.material.tabs.TabLayout;
 
 import static com.example.zomato.utils.Constant.CUISINE_DATA;
@@ -21,6 +22,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding mBinding;
     private static final String PARAM_1 = "QUERY";
     private String QUERY = "";
+    private ViewPagerAdapter mPagerAdapter;
 
     public HomeFragment() {
 
@@ -62,8 +64,8 @@ public class HomeFragment extends Fragment {
                 R.layout.fragment_home, container, false);
 
         if (getActivity() != null) {
-            ViewPagerAdapter viewPager = new ViewPagerAdapter(getChildFragmentManager(), QUERY, CUISINE_DATA);
-            mBinding.viewpager.setAdapter(viewPager);
+            mPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), QUERY, CUISINE_DATA);
+            mBinding.viewpager.setAdapter(mPagerAdapter);
             mBinding.viewpager.setOffscreenPageLimit(1);
             mBinding.tablayout.setupWithViewPager(mBinding.viewpager);
             setupTabIcons();
@@ -79,6 +81,12 @@ public class HomeFragment extends Fragment {
                 String value = CUISINE_DATA.valueAt(i);
                 tab.setText(value);
             }
+        }
+    }
+
+    public void setSort(SortRestaurant sort) {
+        if (mPagerAdapter != null) {
+            mPagerAdapter.setSort(sort);
         }
     }
 

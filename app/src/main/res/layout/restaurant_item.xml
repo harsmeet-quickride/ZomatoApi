@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:maxLines="1"
-            android:text="@{restaurant.averageCostForTwo}"
+            bind:cost="@{restaurant.averageCostForTwo}"
             android:textColor="@color/colorTextSpecial"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/tv_highlight"

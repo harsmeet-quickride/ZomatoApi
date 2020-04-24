@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
 
@@ -56,8 +57,8 @@ public class BindingUtils {
      * Utility method for Image url If image url is valid then it is parsed else
      * restaurant url provides url to website and icon finder utility is used to find icon
      *
-     * @param imageView  Default view passed for displaying image
-     * @param url        Url of the image
+     * @param imageView     Default view passed for displaying image
+     * @param url           Url of the image
      * @param restaurantUrl URL to the restaurant
      */
     @BindingAdapter({"bind:url", "bind:restaurantUrl"})
@@ -80,8 +81,8 @@ public class BindingUtils {
      * restaurant url provides url to website and icon finder utility is used to find icon
      * This puts a radius 0 to image
      *
-     * @param imageView  Default view passed for displaying image
-     * @param url        Url of the image
+     * @param imageView     Default view passed for displaying image
+     * @param url           Url of the image
      * @param restaurantUrl URL to the restaurant
      */
     @BindingAdapter({"bind:urlToImage", "bind:restaurantUrl"})
@@ -163,6 +164,12 @@ public class BindingUtils {
             return s;
 
         return s.substring(0, 1).toUpperCase() + s.substring(1);
+    }
+
+    @BindingAdapter("bind:cost")
+    public static void setCostForTwo(TextView textView, int cost) {
+        String s = "₹" + cost + " per two person";
+        textView.setText(s);
     }
 }
 

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SORT BY"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/rb_rat_high_to_Low"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rating: High to Low" />
+
+            <RadioButton
+                android:id="@+id/rb_rat_low_to_high"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rating: Low to High" />
+
+            <RadioButton
+                android:id="@+id/rb_price_high_to_low"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Price: High to Low" />
+
+            <RadioButton
+                android:id="@+id/rb_price_low_to_high"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Price: Low to High" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btn_sort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:text="Sort" />
+
+    </LinearLayout>
+</layout>

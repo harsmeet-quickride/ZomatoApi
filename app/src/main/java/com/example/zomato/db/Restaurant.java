@@ -33,7 +33,7 @@ public class Restaurant {
 
     @NonNull
     @ColumnInfo(name = "average_cost_for_two")
-    private String averageCostForTwo;
+    private int averageCostForTwo;
 
     @NonNull
     @ColumnInfo(name = "highlights")
@@ -86,7 +86,7 @@ public class Restaurant {
     public Restaurant() {
     }
 
-    public Restaurant(String id, int hasOnlineDelivery, String averageCostForTwo, @NonNull String highlights, int priceRange, @NonNull String timings, @NonNull UserRating userRating, int isDeliveringNow, @NonNull String url, @NonNull String cuisines, @NonNull String phoneNumbers, @NonNull String name, @NonNull String location) {
+    public Restaurant(String id, int hasOnlineDelivery, int averageCostForTwo, @NonNull String highlights, int priceRange, @NonNull String timings, @NonNull UserRating userRating, int isDeliveringNow, @NonNull String url, @NonNull String cuisines, @NonNull String phoneNumbers, @NonNull String name, @NonNull String location) {
         this.id = id;
         this.hasOnlineDelivery = hasOnlineDelivery;
         this.averageCostForTwo = averageCostForTwo;
@@ -120,11 +120,11 @@ public class Restaurant {
         this.hasOnlineDelivery = hasOnlineDelivery;
     }
 
-    public String getAverageCostForTwo() {
+    public int getAverageCostForTwo() {
         return averageCostForTwo;
     }
 
-    public void setAverageCostForTwo(String averageCostForTwo) {
+    public void setAverageCostForTwo(int averageCostForTwo) {
         this.averageCostForTwo = averageCostForTwo;
     }
 
@@ -245,7 +245,7 @@ public class Restaurant {
                 Restaurant db = new Restaurant(
                         model.getId(),
                         model.getHasOnlineDelivery(),
-                        Helper.getCostForTwo(model.getAverageCostForTwo()),
+                        model.getAverageCostForTwo(),
                         Helper.getHighlights(model.getHighlights()),
                         model.getPriceRange(),
                         model.getTimings(),

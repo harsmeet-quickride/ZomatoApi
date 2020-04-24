@@ -2,9 +2,12 @@ package com.example.zomato.utils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.example.zomato.db.Restaurant;
+
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -12,17 +15,6 @@ import java.util.List;
  * http://github.com/rajatsangrame
  */
 public class Helper {
-
-    public static String getCostForTwo(int cost) {
-
-        try {
-            return "₹" + cost + " per two person";
-
-        } catch (Exception ignore) {
-        }
-        return cost + "";
-    }
-
 
     public static String getHighlights(List<String> list) {
 
@@ -53,23 +45,91 @@ public class Helper {
         inputManager.toggleSoftInput(0, 0);
     }
 
-    //region Unused
-    /*
-    public static String getHighlights(List<String> list) {
+    public static List<Restaurant> handleSorting(SortRestaurant sort, List<Restaurant> list) {
 
-        StringBuilder builder = new StringBuilder();
-
-        for (int i = 0; i < list.size(); i++) {
-
-            builder.append(list.get(i));
-
-            if (i != list.size() - 1){
-                builder.append(", ");
-            }
+        if (sort == null) {
+            return list;
         }
 
-        return builder.toString();
+        //region Price
+        if (sort.sortPriceAsc) {
+
+            Collections.sort(list, new Comparator<Restaurant>() {
+                @Override
+                public int compare(Restaurant o1, Restaurant o2) {
+
+                    try {
+                        double ob1 = o1.getAverageCostForTwo();
+                        double ob2 = o2.getAverageCostForTwo();
+
+                        return Double.compare(ob1, ob2);
+                    } catch (NumberFormatException e) {
+                        return 0;
+                    }
+
+                }
+            });
+
+        } else if ((sort.sortPriceDesc)) {
+
+            Collections.sort(list, new Comparator<Restaurant>() {
+                @Override
+                public int compare(Restaurant o1, Restaurant o2) {
+
+                    try {
+                        double ob1 = o1.getAverageCostForTwo();
+                        double ob2 = o2.getAverageCostForTwo();
+
+                        return Double.compare(ob2, ob1);
+                    } catch (NumberFormatException e) {
+                        return 0;
+                    }
+
+                }
+            });
+        }
+        //endregion
+
+        //region Rating
+        else if (sort.sortRatingAsc) {
+
+            Collections.sort(list, new Comparator<Restaurant>() {
+                @Override
+                public int compare(Restaurant o1, Restaurant o2) {
+
+                    try {
+                        double ob1 = Double.parseDouble(o1.getUserRating());
+                        double ob2 = Double.parseDouble(o2.getUserRating());
+
+                        return Double.compare(ob1, ob2);
+                    } catch (NumberFormatException e) {
+                        return 0;
+                    }
+
+                }
+            });
+
+        } else if ((sort.sortRatingDesc)) {
+
+            Collections.sort(list, new Comparator<Restaurant>() {
+                @Override
+                public int compare(Restaurant o1, Restaurant o2) {
+
+                    try {
+                        double ob1 = Double.parseDouble(o1.getUserRating());
+                        double ob2 = Double.parseDouble(o2.getUserRating());
+
+                        return Double.compare(ob2, ob1);
+                    } catch (NumberFormatException e) {
+                        return 0;
+                    }
+
+                }
+            });
+        }
+        //endregion
+
+        return list;
     }
-     */
-    //endregion
+
 }

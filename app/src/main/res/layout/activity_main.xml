@@ -88,5 +88,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:menu="@menu/navigation" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_sort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="70dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_sort"
+            app:tint="@color/colorWhite" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
