@@ -8,12 +8,14 @@ import android.util.SparseArray;
  */
 public class Constant {
 
-    public static int start = 0;
-    public static int count = 10;
-    public static double lat = 28.4332126;
-    public static double lon = 77.1021835;
-    public static double radius = 2000.0;
+    /*Used in RestaurantRepository*/
+    public static int START = 0;
+    public static int COUNT = 10;
+    public static double LAT = 28.4332126;
+    public static double LON = 77.1021835;
+    public static double RADIUS = 2000.0;
 
+    /* USED in HomeFragment*/
     public static final SparseArray<String> CUISINE_DATA = new SparseArray<>();
 
 }

@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.zomato.R;
 import com.example.zomato.databinding.ActivityMainBinding;
 import com.example.zomato.db.RestaurantRepository;
+import com.example.zomato.utils.Helper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -135,6 +136,8 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
 
             mBinding.navigation.setSelectedItemId(R.id.navigation_home);
+
+            Helper.hideKeyboard(this);
 
         }
     }

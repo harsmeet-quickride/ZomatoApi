@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.zomato.ui.RestaurantFragment;
 
-
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private final RestaurantFragment[] mRestaurantFragments;

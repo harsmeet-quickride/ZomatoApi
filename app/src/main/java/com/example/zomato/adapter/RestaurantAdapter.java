@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -17,19 +16,24 @@ import com.example.zomato.db.Restaurant;
 import java.util.List;
 
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ViewHolder> {
-    private RestaurantAdapterListener listener;
-    private List<Restaurant> restaurants;
+    private RestaurantAdapterListener mListener;
+    private List<Restaurant> mRestaurants;
+    private boolean mIsSavedFragment = false;
 
     public RestaurantAdapter() {
     }
 
-    public void setListener(RestaurantAdapterListener listener) {
-        this.listener = listener;
+    public void setListener(RestaurantAdapterListener mListener) {
+        this.mListener = mListener;
     }
 
-    public void setRestaurants(List<Restaurant> restaurants) {
-        if (restaurants != null) {
-            this.restaurants = restaurants;
+    public void setIsSavedFragment(boolean isSavedFragment) {
+        this.mIsSavedFragment = isSavedFragment;
+    }
+
+    public void setRestaurants(List<Restaurant> mRestaurants) {
+        if (mRestaurants != null) {
+            this.mRestaurants = mRestaurants;
             notifyDataSetChanged();
         }
     }
@@ -45,25 +49,28 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.binding.setRestaurant(restaurants.get(i));
-        if (restaurants.get(i).isSaved()) {
+        viewHolder.binding.setRestaurant(mRestaurants.get(i));
+        if (mRestaurants.get(i).isSaved()) {
             viewHolder.binding.ivSave.setImageResource(R.drawable.ic_saved);
         } else {
             viewHolder.binding.ivSave.setImageResource(R.drawable.ic_save);
+        }
+        if (mIsSavedFragment) {
+            viewHolder.binding.tvCuisine.setVisibility(View.VISIBLE);
         }
         viewHolder.binding.executePendingBindings();
     }
 
     @Override
     public int getItemCount() {
-        return restaurants == null ? 0 : restaurants.size();
+        return mRestaurants == null ? 0 : mRestaurants.size();
     }
 
 
     public interface RestaurantAdapterListener {
         void onItemClicked(Restaurant restaurant);
 
-        void onItemOptionsClicked(Restaurant restaurant, int position);
+        void onItemOptionsClicked(Restaurant restaurant);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -79,12 +86,12 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
 
         @Override
         public void onClick(View v) {
-            if (listener == null) return;
+            if (mListener == null) return;
             int index = this.getAdapterPosition();
             if (v instanceof FrameLayout) {
-                listener.onItemOptionsClicked(restaurants.get(index), index);
+                mListener.onItemOptionsClicked(mRestaurants.get(index));
             } else {
-                listener.onItemClicked(restaurants.get(index));
+                mListener.onItemClicked(mRestaurants.get(index));
             }
         }
     }

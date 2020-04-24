@@ -1,5 +1,10 @@
 package com.example.zomato.utils;
 
+import android.app.Activity;
+import android.content.Context;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+
 import java.util.List;
 
 /**
@@ -33,11 +38,38 @@ public class Helper {
 
             builder.append(list.get(i));
             if (i == size - 1) {
-                builder.append("...");
+                builder.append(" ...");
             } else {
                 builder.append(", ");
             }
         }
         return builder.toString();
     }
+
+    public static void hideKeyboard(Activity context) {
+        // Check if no view has focus:
+        InputMethodManager inputManager = (InputMethodManager)
+                context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.toggleSoftInput(0, 0);
+    }
+
+    //region Unused
+    /*
+    public static String getHighlights(List<String> list) {
+
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < list.size(); i++) {
+
+            builder.append(list.get(i));
+
+            if (i != list.size() - 1){
+                builder.append(", ");
+            }
+        }
+
+        return builder.toString();
+    }
+     */
+    //endregion
 }

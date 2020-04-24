@@ -25,6 +25,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:text="@{restaurant.name}"
             android:textAppearance="@style/AppTheme.Bold"
             android:textColor="@color/colorTextSecondary"
@@ -57,7 +58,6 @@
             app:layout_constraintTop_toBottomOf="@id/tv_title"
             tools:text="@string/sample_highlights" />
 
-
         <TextView
             android:id="@+id/tv_rate_person"
             android:layout_width="wrap_content"
@@ -65,12 +65,25 @@
             android:layout_marginTop="4dp"
             android:maxLines="1"
             android:text="@{restaurant.averageCostForTwo}"
-            android:textColor="@color/colorGrey"
+            android:textColor="@color/colorTextSpecial"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/tv_highlight"
             app:layout_constraintTop_toBottomOf="@id/tv_highlight"
             tools:text="@string/sample_per_person" />
 
+        <TextView
+            android:id="@+id/tv_cuisine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:maxLines="1"
+            android:text="@{restaurant.cuisines}"
+            android:textColor="@color/colorGrey"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/tv_rate_person"
+            app:layout_constraintTop_toBottomOf="@id/tv_rate_person"
+            tools:text="@string/sample_cuisine" />
 
         <FrameLayout
             android:id="@+id/frameLayout"
@@ -90,26 +103,25 @@
                 tools:text="@string/sample_rating" />
         </FrameLayout>
 
-
         <FrameLayout
             android:id="@+id/btn_save"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
+            android:paddingStart="4dp"
+            android:paddingBottom="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/iv_thumb">
 
             <ImageView
                 android:id="@+id/iv_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:clickable="false"
                 android:src="@drawable/ic_save" />
         </FrameLayout>
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </layout>

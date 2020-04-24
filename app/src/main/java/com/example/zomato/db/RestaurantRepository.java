@@ -76,8 +76,8 @@ public class RestaurantRepository {
         int index = Constant.CUISINE_DATA.indexOfValue(cuisinesId);
         int key = Constant.CUISINE_DATA.keyAt(index);
 
-        sApi.search(query, Constant.start, Constant.count, Constant.lat, Constant.lon,
-                Constant.radius, key + "").enqueue(new Callback<ApiResponse>() {
+        sApi.search(query, Constant.START, Constant.COUNT, Constant.LAT, Constant.LON,
+                Constant.RADIUS, key + "").enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
 

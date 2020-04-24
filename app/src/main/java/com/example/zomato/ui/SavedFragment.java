@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -54,6 +55,7 @@ public class SavedFragment extends Fragment implements RestaurantAdapter.Restaur
         LiveData<List<Restaurant>> list = viewModel.getSavedRestaurants();
         final RestaurantAdapter adapter = new RestaurantAdapter();
         adapter.setListener(this);
+        adapter.setIsSavedFragment(true);
         mBinding.rvRestaurant.setAdapter(adapter);
         list.observe((LifecycleOwner) this, new Observer<List<Restaurant>>() {
             @Override
@@ -73,11 +75,12 @@ public class SavedFragment extends Fragment implements RestaurantAdapter.Restaur
     }
 
     @Override
-    public void onItemOptionsClicked(Restaurant restaurant, int pos) {
+    public void onItemOptionsClicked(Restaurant restaurant) {
         RestaurantRepository db = RestaurantRepository.getInstance(getContext());
 
         if (restaurant.isSaved()) {
             db.updateSave(restaurant.getId(), false);
+            Toast.makeText(getContext(), "Removed from Saved", Toast.LENGTH_SHORT).show();
         } else {
             db.updateSave(restaurant.getId(), true);
         }

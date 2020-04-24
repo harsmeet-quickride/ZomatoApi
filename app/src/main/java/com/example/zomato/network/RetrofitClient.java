@@ -71,7 +71,6 @@ public class RetrofitClient {
         return sApi;
     }
 
-
     // Make sure this class never initialize
     private RetrofitClient() {
     }
