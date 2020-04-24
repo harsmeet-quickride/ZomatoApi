@@ -13,28 +13,20 @@ import com.example.zomato.adapter.ViewPagerAdapter;
 import com.example.zomato.databinding.FragmentHomeBinding;
 import com.google.android.material.tabs.TabLayout;
 
+import static com.example.zomato.utils.Constant.CUISINE_DATA;
+
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding mBinding;
-    private final String[] CUISINE = {
-            "North Indian",
-            "Continental",
-            "South Indian",
-            "Chinese",
-            "Healthy",
-            "Hyderabadi"
-    };
-
-    private final String[] CUISINE_ID = {
-            "50",
-            "35",
-            "85",
-            "25",
-            "143",
-            "49"
-    };
 
     public HomeFragment() {
+
+        CUISINE_DATA.put(50, "North Indian");
+        CUISINE_DATA.put(35, "Continental");
+        CUISINE_DATA.put(85, "South Indian");
+        CUISINE_DATA.put(25, "Chinese");
+        CUISINE_DATA.put(143, "Healthy");
+        CUISINE_DATA.put(49, "Hyderabadi");
     }
 
     public static HomeFragment newInstance() {
@@ -56,9 +48,9 @@ public class HomeFragment extends Fragment {
                 R.layout.fragment_home, container, false);
 
         if (getActivity() != null) {
-            ViewPagerAdapter viewPager = new ViewPagerAdapter(getChildFragmentManager(), CUISINE_ID);
+            ViewPagerAdapter viewPager = new ViewPagerAdapter(getChildFragmentManager(), CUISINE_DATA);
             mBinding.viewpager.setAdapter(viewPager);
-            //mBinding.viewpager.setOffscreenPageLimit(1);
+            mBinding.viewpager.setOffscreenPageLimit(1);
             mBinding.tablayout.setupWithViewPager(mBinding.viewpager);
             setupTabIcons();
         }
@@ -67,10 +59,11 @@ public class HomeFragment extends Fragment {
 
     private void setupTabIcons() {
         TabLayout.Tab tab;
-        for (int i = 0; i < CUISINE.length; i++) {
+        for (int i = 0; i < CUISINE_DATA.size(); i++) {
             tab = mBinding.tablayout.getTabAt(i);
             if (tab != null) {
-                tab.setText(CUISINE[i]);
+                String value = CUISINE_DATA.valueAt(i);
+                tab.setText(value);
             }
         }
     }

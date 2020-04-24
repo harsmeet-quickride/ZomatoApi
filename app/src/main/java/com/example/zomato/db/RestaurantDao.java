@@ -21,6 +21,9 @@ public interface RestaurantDao {
     @Query("SELECT * from restaurant ORDER BY timestamp DESC")
     LiveData<List<Restaurant>> getAllRestaurants();
 
+    @Query("SELECT * from restaurant WHERE cuisines LIKE '%' || :cuisine || '%'")
+    LiveData<List<Restaurant>> getRestaurants(String cuisine);
+
     @Query("SELECT * from restaurant WHERE id=:id")
-    Restaurant getRestaurant(int id);
+    Restaurant getRestaurant(String id);
 }

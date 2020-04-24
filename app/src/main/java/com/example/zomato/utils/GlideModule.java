@@ -5,7 +5,6 @@ import android.util.DisplayMetrics;
 
 import androidx.annotation.NonNull;
 
-import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.annotation.GlideOption;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;

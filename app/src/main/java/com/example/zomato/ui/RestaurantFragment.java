@@ -20,6 +20,7 @@ import com.example.zomato.R;
 import com.example.zomato.adapter.RestaurantAdapter;
 import com.example.zomato.databinding.FragmentRestaurantBinding;
 import com.example.zomato.db.Restaurant;
+import com.example.zomato.utils.Constant;
 import com.example.zomato.viewModel.RestaurantViewModel;
 
 import java.util.List;
@@ -72,7 +73,7 @@ public class RestaurantFragment extends Fragment {
         RestaurantViewModel viewModel = new ViewModelProvider(this).get(RestaurantViewModel.class);
         mBinding.rvRestaurant.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        LiveData<List<Restaurant>> list = viewModel.getAllRestaurants("chicken", CUISINE);
+        LiveData<List<Restaurant>> list = viewModel.getAllRestaurants("", CUISINE);
         list.observe((LifecycleOwner) this, new Observer<List<Restaurant>>() {
             @Override
             public void onChanged(List<Restaurant> restaurants) {

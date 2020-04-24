@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                     return true;
 
-                case R.id.navigation_fav:
+                case R.id.navigation_saved:
                     if (mSavedFragment == null) {
                         mSavedFragment = SavedFragment.newInstance();
                     }

@@ -2,9 +2,11 @@
 
     <item
         android:id="@+id/navigation_home"
+        android:icon="@mipmap/ic_launcher_round"
         android:title="@string/app_name" />
 
     <item
-        android:id="@+id/navigation_fav"
-        android:title="@string/title_fav" />
+        android:id="@+id/navigation_saved"
+        android:icon="@drawable/ic_saved"
+        android:title="@string/title_saved" />
 </menu>

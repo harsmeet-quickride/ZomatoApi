@@ -72,10 +72,14 @@ public class RestaurantRepository {
         });
     }
 
-    public LiveData<List<Restaurant>> getRestaurantList(String query, String cuisinesIds) {
+    public LiveData<List<Restaurant>> getRestaurantList(String query, String cuisinesId) {
+
+        /* Constant.CUISINE_DATA is a Sparse Array*/
+        int index = Constant.CUISINE_DATA.indexOfValue(cuisinesId);
+        int key = Constant.CUISINE_DATA.keyAt(index);
 
         sApi.search(query, Constant.start, Constant.count, Constant.lat, Constant.lon,
-                Constant.radius, cuisinesIds).enqueue(new Callback<ApiResponse>() {
+                Constant.radius, key + "").enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
 
@@ -94,10 +98,10 @@ public class RestaurantRepository {
                 Log.i(TAG, "onFailure: ");
             }
         });
-        return mRestaurantDao.getAllRestaurants();
+        return mRestaurantDao.getRestaurants(cuisinesId);
     }
 
-    public Restaurant getRestaurantById(int id) {
+    public Restaurant getRestaurantById(String id) {
         return mRestaurantDao.getRestaurant(id);
     }
 

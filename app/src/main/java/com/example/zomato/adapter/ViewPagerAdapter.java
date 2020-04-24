@@ -1,8 +1,11 @@
 package com.example.zomato.adapter;
 
+import android.util.SparseArray;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
 import com.example.zomato.ui.RestaurantFragment;
 
 
@@ -10,11 +13,12 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private final RestaurantFragment[] mRestaurantFragments;
 
-    public ViewPagerAdapter(FragmentManager fm, String[] cuisine) {
+    public ViewPagerAdapter(FragmentManager fm, SparseArray<String> cuisine) {
         super(fm);
-        mRestaurantFragments = new RestaurantFragment[cuisine.length];
-        for (int i = 0; i < cuisine.length; i++) {
-            mRestaurantFragments[i] = RestaurantFragment.newInstance(cuisine[i]);
+        mRestaurantFragments = new RestaurantFragment[cuisine.size()];
+        for (int i = 0; i < cuisine.size(); i++) {
+            int key = cuisine.keyAt(i);
+            mRestaurantFragments[i] = RestaurantFragment.newInstance(cuisine.get(key));
         }
     }
 

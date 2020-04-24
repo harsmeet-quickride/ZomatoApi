@@ -25,11 +25,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:maxLines="1"
             android:text="@{restaurant.name}"
             android:textAppearance="@style/AppTheme.Bold"
             android:textColor="@color/colorTextSecondary"
-            android:textSize="16sp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/btn_save"
             app:layout_constraintStart_toEndOf="@id/iv_thumb"
             app:layout_constraintTop_toTopOf="@id/iv_thumb"
             tools:text="@string/sample_title" />
@@ -46,13 +46,13 @@
 
         <TextView
             android:id="@+id/tv_highlight"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:maxLines="1"
             android:text="@{restaurant.highlights}"
             android:textColor="@color/colorGrey"
-            android:textSize="14sp"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
             tools:text="@string/sample_highlights" />
@@ -62,22 +62,23 @@
             android:id="@+id/tv_rate_person"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:maxLines="1"
-            android:text="@{Integer.toString(restaurant.averageCostForTwo)}"
+            android:text="@{restaurant.averageCostForTwo}"
             android:textColor="@color/colorGrey"
-            android:textSize="14sp"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/tv_highlight"
             app:layout_constraintTop_toBottomOf="@id/tv_highlight"
             tools:text="@string/sample_per_person" />
 
 
         <FrameLayout
+            android:id="@+id/frameLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
             android:padding="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/iv_thumb"
             app:layout_constraintTop_toTopOf="@+id/iv_thumb">
 
             <TextView
@@ -85,9 +86,27 @@
                 android:layout_height="wrap_content"
                 android:text="@{restaurant.userRating}"
                 android:textColor="@color/colorWhite"
-                android:textSize="12sp"
+                android:textSize="10sp"
                 tools:text="@string/sample_rating" />
         </FrameLayout>
+
+
+        <FrameLayout
+            android:id="@+id/btn_save"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:clickable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_thumb"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:src="@drawable/ic_save" />
+        </FrameLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

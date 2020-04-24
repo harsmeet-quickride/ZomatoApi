@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey;
 import com.example.zomato.model.Location;
 import com.example.zomato.model.RestaurantsItem;
 import com.example.zomato.model.UserRating;
+import com.example.zomato.utils.Helper;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class Restaurant {
 
     @NonNull
     @ColumnInfo(name = "average_cost_for_two")
-    private int averageCostForTwo;
+    private String averageCostForTwo;
 
     @NonNull
     @ColumnInfo(name = "highlights")
@@ -81,7 +82,7 @@ public class Restaurant {
     public Restaurant() {
     }
 
-    public Restaurant(String id, int hasOnlineDelivery, int averageCostForTwo, @NonNull String highlights, int priceRange, @NonNull String timings, @NonNull UserRating userRating, int isDeliveringNow, @NonNull String url, @NonNull String cuisines, @NonNull String phoneNumbers, @NonNull String name, @NonNull String location) {
+    public Restaurant(String id, int hasOnlineDelivery, String averageCostForTwo, @NonNull String highlights, int priceRange, @NonNull String timings, @NonNull UserRating userRating, int isDeliveringNow, @NonNull String url, @NonNull String cuisines, @NonNull String phoneNumbers, @NonNull String name, @NonNull String location) {
         this.id = id;
         this.hasOnlineDelivery = hasOnlineDelivery;
         this.averageCostForTwo = averageCostForTwo;
@@ -115,11 +116,11 @@ public class Restaurant {
         this.hasOnlineDelivery = hasOnlineDelivery;
     }
 
-    public int getAverageCostForTwo() {
+    public String getAverageCostForTwo() {
         return averageCostForTwo;
     }
 
-    public void setAverageCostForTwo(int averageCostForTwo) {
+    public void setAverageCostForTwo(String averageCostForTwo) {
         this.averageCostForTwo = averageCostForTwo;
     }
 
@@ -232,8 +233,8 @@ public class Restaurant {
                 Restaurant db = new Restaurant(
                         model.getId(),
                         model.getHasOnlineDelivery(),
-                        model.getAverageCostForTwo(),
-                        model.getHighlights().toString(),
+                        Helper.getCostForTwo(model.getAverageCostForTwo()),
+                        Helper.getHighlights(model.getHighlights()),
                         model.getPriceRange(),
                         model.getTimings(),
                         model.getUserRating(),
