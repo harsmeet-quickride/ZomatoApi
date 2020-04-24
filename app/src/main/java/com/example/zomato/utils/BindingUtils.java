@@ -44,8 +44,8 @@ public class BindingUtils {
     /**
      * Utility method for fetching formatted Source and Time
      *
-     * @param sourceName Article source name
-     * @param date       Publish date of article
+     * @param sourceName restaurant source name
+     * @param date       Publish date of restaurant
      * @return Formatted outputted Example: <b>CNN • 7h</b>
      */
     public static String getSourceAndTime(String sourceName, Timestamp date) {
@@ -54,18 +54,18 @@ public class BindingUtils {
 
     /**
      * Utility method for Image url If image url is valid then it is parsed else
-     * Article url provides url to website and icon finder utility is used to find icon
+     * restaurant url provides url to website and icon finder utility is used to find icon
      *
      * @param imageView  Default view passed for displaying image
      * @param url        Url of the image
-     * @param articleUrl URL to the article
+     * @param restaurantUrl URL to the restaurant
      */
-    @BindingAdapter({"bind:url", "bind:articleUrl"})
-    public static void loadThumbnailImage(ImageView imageView, String url, String articleUrl) {
+    @BindingAdapter({"bind:url", "bind:restaurantUrl"})
+    public static void loadThumbnailImage(ImageView imageView, String url, String restaurantUrl) {
         Context context = imageView.getContext();
         if (url == null) {
             String iconUrl = "https://besticon-demo.herokuapp.com/icon?url=%s&size=80..120..200";
-            url = String.format(iconUrl, Uri.parse(articleUrl).getAuthority());
+            url = String.format(iconUrl, Uri.parse(restaurantUrl).getAuthority());
         }
         Glide.with(imageView)
                 .load(url)
@@ -77,19 +77,19 @@ public class BindingUtils {
 
     /**
      * Utility method for Image url If image url is valid then it is parsed else
-     * Article url provides url to website and icon finder utility is used to find icon
+     * restaurant url provides url to website and icon finder utility is used to find icon
      * This puts a radius 0 to image
      *
      * @param imageView  Default view passed for displaying image
      * @param url        Url of the image
-     * @param articleUrl URL to the article
+     * @param restaurantUrl URL to the restaurant
      */
-    @BindingAdapter({"bind:urlToImage", "bind:articleUrl"})
-    public static void loadImage(ImageView imageView, String url, String articleUrl) {
+    @BindingAdapter({"bind:urlToImage", "bind:restaurantUrl"})
+    public static void loadImage(ImageView imageView, String url, String restaurantUrl) {
         Context context = imageView.getContext();
         if (url == null) {
             String iconUrl = "https://besticon-demo.herokuapp.com/icon?url=%s&size=80..120..200";
-            url = String.format(iconUrl, Uri.parse(articleUrl).getAuthority());
+            url = String.format(iconUrl, Uri.parse(restaurantUrl).getAuthority());
         }
 
         Glide.with(imageView)

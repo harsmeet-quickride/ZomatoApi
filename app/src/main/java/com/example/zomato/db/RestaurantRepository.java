@@ -1,6 +1,7 @@
 package com.example.zomato.db;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -36,8 +37,7 @@ public class RestaurantRepository {
     private static RetrofitApi sApi;
     private final AppExecutor mExecutor;
 
-
-    public synchronized static RestaurantRepository getInstance(Application context) {
+    public synchronized static RestaurantRepository getInstance(Context context) {
         if (sInstance == null) {
             synchronized (LOCK) {
                 sInstance = new RestaurantRepository(context);
@@ -51,7 +51,7 @@ public class RestaurantRepository {
      *
      * @param application needed to create db instance
      */
-    private RestaurantRepository(Application application) {
+    private RestaurantRepository(Context application) {
         RestaurantDatabase db = RestaurantDatabase.getDatabase(application);
         mRestaurantDao = db.restaurantDao();
         mRestaurantList = new MutableLiveData<>();
@@ -99,6 +99,19 @@ public class RestaurantRepository {
             }
         });
         return mRestaurantDao.getRestaurants(cuisinesId);
+    }
+
+    public LiveData<List<Restaurant>> getSavedRestaurant() {
+        return mRestaurantDao.getSavedRestaurants();
+    }
+
+    public void updateSave(final String id, final boolean isSave) {
+        mExecutor.getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                mRestaurantDao.updateSave(id, isSave, System.currentTimeMillis());
+            }
+        });
     }
 
     public Restaurant getRestaurantById(String id) {

@@ -79,6 +79,10 @@ public class Restaurant {
     @ColumnInfo(name = "timestamp")
     private long timestamp;
 
+    @NonNull
+    @ColumnInfo(name = "is_saved")
+    private boolean isSaved;
+
     public Restaurant() {
     }
 
@@ -218,6 +222,14 @@ public class Restaurant {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public boolean isSaved() {
+        return isSaved;
+    }
+
+    public void setSaved(boolean saved) {
+        isSaved = saved;
     }
 
     public static List<Restaurant> getListFromResponse(List<RestaurantsItem> list) {

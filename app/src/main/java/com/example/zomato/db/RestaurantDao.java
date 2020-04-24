@@ -26,4 +26,10 @@ public interface RestaurantDao {
 
     @Query("SELECT * from restaurant WHERE id=:id")
     Restaurant getRestaurant(String id);
+
+    @Query("SELECT * from restaurant WHERE is_saved=1 ORDER BY timestamp DESC")
+    LiveData<List<Restaurant>> getSavedRestaurants();
+
+    @Query("UPDATE restaurant SET timestamp = :timeStamp, is_saved = :isSaved WHERE id = :id")
+    int updateSave(String id, boolean isSaved, long timeStamp);
 }

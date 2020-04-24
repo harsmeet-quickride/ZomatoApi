@@ -20,7 +20,7 @@ import com.example.zomato.R;
 import com.example.zomato.adapter.RestaurantAdapter;
 import com.example.zomato.databinding.FragmentRestaurantBinding;
 import com.example.zomato.db.Restaurant;
-import com.example.zomato.utils.Constant;
+import com.example.zomato.db.RestaurantRepository;
 import com.example.zomato.viewModel.RestaurantViewModel;
 
 import java.util.List;
@@ -29,12 +29,13 @@ import java.util.List;
  * Created by Rajat Sangrame on 23/4/20.
  * http://github.com/rajatsangrame
  */
-public class RestaurantFragment extends Fragment {
+public class RestaurantFragment extends Fragment implements RestaurantAdapter.RestaurantAdapterListener {
 
     private static final String TAG = "RestaurantFragment";
     private FragmentRestaurantBinding mBinding;
     private String CUISINE = "";
-    public static final String PARAM = "CUISINE";
+    private static final String PARAM = "CUISINE";
+    private RestaurantAdapter mAdapter;
 
     public RestaurantFragment() {
     }
@@ -74,17 +75,39 @@ public class RestaurantFragment extends Fragment {
         mBinding.rvRestaurant.setLayoutManager(new LinearLayoutManager(getContext()));
 
         LiveData<List<Restaurant>> list = viewModel.getAllRestaurants("", CUISINE);
+        mAdapter = new RestaurantAdapter();
+        mAdapter.setListener(this);
+        mBinding.rvRestaurant.setAdapter(mAdapter);
         list.observe((LifecycleOwner) this, new Observer<List<Restaurant>>() {
             @Override
             public void onChanged(List<Restaurant> restaurants) {
 
-                RestaurantAdapter adapter = new RestaurantAdapter(restaurants, null);
-                mBinding.rvRestaurant.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+                mAdapter.setRestaurants(restaurants);
+                mAdapter.notifyDataSetChanged();
 
                 Log.i(TAG, "onChanged: " + restaurants.size());
             }
         });
+
+    }
+
+    @Override
+    public void onItemClicked(Restaurant restaurant) {
+
+        Log.i(TAG, "onItemClicked: Item");
+    }
+
+    @Override
+    public void onItemOptionsClicked(Restaurant restaurant, int pos) {
+        RestaurantRepository db = RestaurantRepository.getInstance(getContext());
+
+        if (restaurant.isSaved()) {
+            db.updateSave(restaurant.getId(), false);
+        } else {
+            db.updateSave(restaurant.getId(), true);
+        }
+        mBinding.rvRestaurant.scrollToPosition(pos);
+        Log.i(TAG, "onItemOptionsClicked: ");
 
     }
 }

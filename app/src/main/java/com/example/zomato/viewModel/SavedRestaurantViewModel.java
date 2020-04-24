@@ -11,17 +11,17 @@ import com.example.zomato.db.RestaurantRepository;
 
 import java.util.List;
 
-public class RestaurantViewModel extends AndroidViewModel {
+public class SavedRestaurantViewModel extends AndroidViewModel {
 
     private final RestaurantRepository restaurantRepository;
 
-    public RestaurantViewModel(@NonNull Application application) {
+    public SavedRestaurantViewModel(@NonNull Application application) {
         super(application);
         restaurantRepository = RestaurantRepository.getInstance(application);
     }
 
-    public LiveData<List<Restaurant>> getAllRestaurants(String query, String cuisinesIds) {
-        return restaurantRepository.getRestaurantList(query, cuisinesIds);
+    public LiveData<List<Restaurant>> getSavedRestaurants() {
+        return restaurantRepository.getSavedRestaurant();
     }
 
 }

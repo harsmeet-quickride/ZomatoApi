@@ -96,11 +96,12 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:clickable="true"
+            android:focusable="true"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/iv_thumb"
-            android:focusable="true">
+            app:layout_constraintTop_toTopOf="@+id/iv_thumb">
 
             <ImageView
+                android:id="@+id/iv_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
