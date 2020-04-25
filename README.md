@@ -1,4 +1,4 @@
-# NewsApp
+# Zomato Api
 
 #### Setup API Key
 1. Visit [Zomato](https://developers.zomato.com/api) to generate your API Key
